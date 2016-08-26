@@ -59,6 +59,19 @@ angular.module('ui.mask', [])
                     require: 'ngModel',
                     restrict: 'A',
                     compile: function uiMaskCompilingFunction() {
+                     
+                        // Check support this input type
+                        if( iAttrs.type != 'text' ){
+                            var inp = document.createElement("input");
+                            inp.setAttribute('type', iAttrs.type);
+
+                            if( inp.type != iAttrs.type){
+                                iElement[0].setAttribute('type', inp.type);
+                            } else {
+                                return;
+                            }
+                        }
+                        
                         var options = angular.copy(maskConfig);
 
                         return function uiMaskLinkingFunction(scope, iElement, iAttrs, controller) {
